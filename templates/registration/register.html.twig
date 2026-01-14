@@ -1,0 +1,69 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <h1>Register</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.Lastname) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+{% endblock %} #}
+
+{% extends 'base.html.twig' %}
+{% block title %}Inscription
+{% endblock %}
+{% block body %}
+	<div class="py-5" style="background-color: #2d3238;">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="card shadow-sm">
+						<div class="card-body">
+							{% for flash_error in app.flashes('verify_email_error') %}
+								<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+							{% endfor %}
+							<h2 class="mb-4 text-center">Créer un compte</h2>
+							{{ form_start(registrationForm) }}
+							<fieldset>
+								<legend>Mon identité</legend>
+								{{ form_row(registrationForm.Lastname) }}
+								{{ form_row(registrationForm.Firstname) }}
+								{{ form_row(registrationForm.email)}}
+							</fieldset>
+
+							<fieldset>
+								<legend>Mes coordonnées</legend>
+								{{ form_row(registrationForm.Address) }}
+								{{ form_row(registrationForm.Zipcode) }}
+								{{ form_row(registrationForm.City) }}
+							</fieldset>
+							{# <div class="mb-3">
+							</div> #}
+							<div class="mb-3">
+								{{ form_errors(registrationForm.plainPassword) }}
+							</div>
+							<div class="form-check mb-3">
+								{{ form_errors(registrationForm.RGPDConsent) }}
+							</div>
+							<button type="submit" class="btn btn-primary w-100">S'inscrire</button>
+							{{ form_end(registrationForm) }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

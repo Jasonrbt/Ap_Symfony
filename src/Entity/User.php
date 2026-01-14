@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_LASTNAME', fields: ['Lastname'])]
+#[UniqueEntity(fields: ['Lastname'], message: 'There is already an account with this Lastname')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -44,7 +46,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $City = null;
 
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeImmutable $Created_at = null;
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column]
+    private bool $isVerified = false;
+
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
 
     public function getId(): ?int
     {
@@ -173,6 +181,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->Created_at = $Created_at;
 
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
         return $this;
     }
 }
