@@ -37,26 +37,24 @@
 							{% endfor %}
 							<h2 class="mb-4 text-center">Créer un compte</h2>
 							{{ form_start(registrationForm) }}
-							<fieldset>
-								<legend>Mon identité</legend>
-								{{ form_row(registrationForm.Lastname) }}
-								{{ form_row(registrationForm.Firstname) }}
-								{{ form_row(registrationForm.email)}}
+							<fieldset class="border rounded p-3 mb-4">
+								<legend class="float-none w-auto px-2 fs-6 text-muted">Mon identité</legend>
+								{{ form_row(registrationForm.Lastname, {'attr': {'class': 'form-control'}}) }}
+								{{ form_row(registrationForm.Firstname, {'attr': {'class': 'form-control'}}) }}
+								{{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
 							</fieldset>
-
-							<fieldset>
-								<legend>Mes coordonnées</legend>
-								{{ form_row(registrationForm.Address) }}
-								{{ form_row(registrationForm.Zipcode) }}
-								{{ form_row(registrationForm.City) }}
+							<fieldset class="border rounded p-3 mb-4">
+								<legend class="float-none w-auto px-2 fs-6 text-muted">Mes coordonnées</legend>
+								{{ form_row(registrationForm.Address, {'attr': {'class': 'form-control'}}) }}
+								{{ form_row(registrationForm.Zipcode, {'attr': {'class': 'form-control'}}) }}
+								{{ form_row(registrationForm.City, {'attr': {'class': 'form-control'}}) }}
 							</fieldset>
-							{# <div class="mb-3">
-							</div> #}
 							<div class="mb-3">
-								{{ form_errors(registrationForm.plainPassword) }}
+								{{ form_row(registrationForm.plainPassword, { label: 'Password', attr: {'class': 'form-control'} }) }}
 							</div>
-							<div class="form-check mb-3">
-								{{ form_errors(registrationForm.RGPDConsent) }}
+							<div class="mb-3 form-check">
+								{{ form_widget(registrationForm.RGPDConsent, {'attr': {'class': 'form-check-input'}}) }}
+								{{ form_label(registrationForm.RGPDConsent, null, {'label_attr': {'class': 'form-check-label'}}) }}
 							</div>
 							<button type="submit" class="btn btn-primary w-100">S'inscrire</button>
 							{{ form_end(registrationForm) }}
